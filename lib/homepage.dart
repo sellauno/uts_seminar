@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:uts_seminar/entryseminar.dart';
 import 'dart:async';
 import 'dbhelperseminar.dart';
 import 'dbhelperpesanan.dart';
@@ -40,16 +41,16 @@ class HomeState extends State<Home> {
             width: double.infinity,
             child: RaisedButton(
               child: Text("Tambah Seminar"),
-//               onPressed: () async {
-//                 var seminar = await navigateToEntryForm(context, null);
-//                 if (seminar != null) {
-// //TODO 2 Panggil Fungsi untuk Insert ke DB
-//                   int result = await dbHelperSeminar.insert(seminar);
-//                   if (result > 0) {
-//                     updateListView();
-//                   }
-//                 }
-//               },
+              onPressed: () async {
+                var seminar = await navigateToEntryForm(context, null);
+                if (seminar != null) {
+//TODO 2 Panggil Fungsi untuk Insert ke DB
+                  int result = await dbHelperSeminar.insert(seminar);
+                  if (result > 0) {
+                    updateListView();
+                  }
+                }
+              },
             ),
           ),
         ),
@@ -57,13 +58,13 @@ class HomeState extends State<Home> {
     );
   }
 
-  // Future<Seminar> navigateToEntryForm(BuildContext context, Seminar seminar) async {
-  //   var result = await Navigator.push(context,
-  //       MaterialPageRoute(builder: (BuildContext context) {
-  //   return EntryForm(seminar);
-  //   }));
-  //   return result;
-  // }
+  Future<Seminar> navigateToEntryForm(BuildContext context, Seminar seminar) async {
+    var result = await Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) {
+    return EntryFormSeminar(seminar);
+    }));
+    return result;
+  }
 
   ListView createListView() {
     TextStyle textStyle = Theme.of(context).textTheme.headline5;
@@ -103,7 +104,7 @@ class HomeState extends State<Home> {
     );
   }
   void addData() async{
-      var add1 = Seminar("Seminar1", DateTime.now(), 50000, 50, "Zoom Meeting", "PemateriA");
+      var add1 = Seminar("Seminar1", /*DateTime.now(),*/ 50000, 50, "Zoom Meeting", "PemateriA");
       await dbHelperSeminar.insert(add1);
       updateListView();
   }

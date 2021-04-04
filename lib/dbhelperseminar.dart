@@ -40,7 +40,20 @@ class DbHelperSeminar {
       lokasi TEXT,
       pembicara TEXT
       )
-    ''');
+    ''');    
+
+    // await db.execute('''
+    //   INSERT INTO 'seminar' ('id', 'judul', 'waktu', 'harga', 'kuota', 'lokasi', 'pembicara') VALUES
+    //             (1, 'Seminar1', '2021-04-07 10:00:00', 50000, 50, 'Zoom Meeting', 'PemateriA'),
+    //             (2, 'Seminar2', '2021-04-08 10:00:00', 50000, 50, 'Zoom Meeting', 'PemateriB'),
+    //             (3, 'Seminar3', '2021-04-09 10:00:00', 50000, 50, 'Zoom Meeting', 'PemateriC');
+    // ''');
+
+    // await db.execute(
+    //            "INSERT INTO seminar ('id', 'judul', 'waktu', 'harga', 'kuota', 'lokasi', 'pembicara') values (?, ?, ?, ?, ?)", 
+    //            [1, "Seminar1", DateTime.now(), 50000, 50, "Zoom Meeting", "PemateriA"]
+    //         ); 
+
     batchTemp.commit();
   }
 
