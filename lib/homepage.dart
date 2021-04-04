@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
 
   void initState(){
-    updateListView();
+      updateListView();
   }
 
   DbHelperSeminar dbHelperSeminar = DbHelperSeminar();
@@ -40,16 +40,16 @@ class HomeState extends State<Home> {
             width: double.infinity,
             child: RaisedButton(
               child: Text("Tambah Seminar"),
-              onPressed: () async {
-                var seminar = await navigateToEntryForm(context, null);
-                if (seminar != null) {
-//TODO 2 Panggil Fungsi untuk Insert ke DB
-                  int result = await dbHelperSeminar.insert(seminar);
-                  if (result > 0) {
-                    updateListView();
-                  }
-                }
-              },
+//               onPressed: () async {
+//                 var seminar = await navigateToEntryForm(context, null);
+//                 if (seminar != null) {
+// //TODO 2 Panggil Fungsi untuk Insert ke DB
+//                   int result = await dbHelperSeminar.insert(seminar);
+//                   if (result > 0) {
+//                     updateListView();
+//                   }
+//                 }
+//               },
             ),
           ),
         ),
@@ -57,13 +57,13 @@ class HomeState extends State<Home> {
     );
   }
 
-  Future<Seminar> navigateToEntryForm(BuildContext context, Seminar seminar) async {
-    var result = await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) {
-  //  return EntryForm(seminar);
-    }));
-    return result;
-  }
+  // Future<Seminar> navigateToEntryForm(BuildContext context, Seminar seminar) async {
+  //   var result = await Navigator.push(context,
+  //       MaterialPageRoute(builder: (BuildContext context) {
+  //   return EntryForm(seminar);
+  //   }));
+  //   return result;
+  // }
 
   ListView createListView() {
     TextStyle textStyle = Theme.of(context).textTheme.headline5;
@@ -82,9 +82,7 @@ class HomeState extends State<Home> {
               this.seminarList[index].judul,
               style: textStyle,
             ),
-      /*      subtitle: Text("Harga : " + this.seminarList[index].price.toString() + 
-            "\nStok : " + this.seminarList[index].stok.toString()+
-            "\nKode Barang : " + this.seminarList[index].kodeBarang),
+            subtitle: Text("Harga : " + this.seminarList[index].harga.toString()),
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
@@ -93,18 +91,21 @@ class HomeState extends State<Home> {
                 updateListView();
               },
             ), 
-            */
             onTap: () async {
-              var seminar =
-                  await navigateToEntryForm(context, this.seminarList[index]);
+            //  var seminar = await navigateToEntryForm(context, this.seminarList[index]);
                 //TODO 4 Panggil Fungsi untuk Edit data
-                await dbHelperSeminar.update(seminar);
+            //    await dbHelperSeminar.update(seminar);
                 updateListView();
             },
           ),
         );
       },
     );
+  }
+  void addData() async{
+      var add1 = Seminar("Seminar1", DateTime.now(), 50000, 50, "Zoom Meeting", "PemateriA");
+      await dbHelperSeminar.insert(add1);
+      updateListView();
   }
 
 //update List seminar

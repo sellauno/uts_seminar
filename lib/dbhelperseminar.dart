@@ -61,8 +61,7 @@ class DbHelperSeminar {
 //update databases
   Future<int> update(Seminar object) async {
     Database db = await this.initDb();
-    int count = await db
-        .update('seminar', object.toMap(), where: 'id=?', whereArgs: [object.id]);
+    int count = await db.update('seminar', object.toMap(), where: 'id=?', whereArgs: [object.id]);
     return count;
   }
 
