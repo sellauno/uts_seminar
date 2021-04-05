@@ -32,27 +32,49 @@ class PesananPageState extends State<PesananPage> {
         title: Text('Riwayat Pesanan'),
       ),
       body: Column(children: [
+        Container(
+          alignment: Alignment.topCenter,
+          height: 50,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
+                  child: Container(
+                    alignment: Alignment.center, 
+                    color: Colors.orangeAccent, 
+                    child: Text("Seminar")
+                    )
+                    ),
+              ),
+              Expanded(
+                child: Container(alignment: Alignment.center, color: Colors.deepOrangeAccent, child: Text("Pembelian")),
+              ),
+            ],
+          ),
+        ),
         Expanded(
           child: createListView(),
         ),
         Container(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: double.infinity,
-            child: RaisedButton(
-              child: Text("Tambah Item"),
+          alignment: Alignment.bottomRight,
+          margin: const EdgeInsets.all(20),
+            child: FloatingActionButton(
+              child: Icon(Icons.add),
               onPressed: () async {
-                var item = await navigateToEntryForm(context, null);
-                if (item != null) {
-//TODO 2 Panggil Fungsi untuk Insert ke DB
-                  int result = await dbHelper.insert(item);
+                var pesanan = await navigateToEntryForm(context, null);
+                if (pesanan != null) {
+                  //TODO 2 Panggil Fungsi untuk Insert ke DB
+                  int result = await dbHelper.insert(pesanan);
                   if (result > 0) {
                     updateListView();
                   }
                 }
               },
             ),
-          ),
         ),
       ]),
     );
