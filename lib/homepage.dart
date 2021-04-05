@@ -104,7 +104,7 @@ class HomeState extends State<Home> {
     );
   }
   void addData() async{
-      var add1 = Seminar("Seminar1", /*DateTime.now(),*/ 50000, 50, "Zoom Meeting", "PemateriA");
+      var add1 = Seminar("Seminar1", "DateTime.now()", 50000, 50, "Zoom Meeting", "PemateriA");
       await dbHelperSeminar.insert(add1);
       updateListView();
   }
