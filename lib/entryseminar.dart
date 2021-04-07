@@ -23,7 +23,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
 //kondisi
     if (seminar != null) {
       judulController = seminar.judul;
- //     waktuController = seminar.waktu;
+      waktuController = seminar.waktu;
       hargaController = seminar.harga;
       kuotaController = seminar.kuota;
       lokasiController = seminar.lokasi;
@@ -57,11 +57,12 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                 ),
               ),
 // waktu
+
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
                   controller: waktuController,
-                  keyboardType: TextInputType.datetime,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Waktu',
                     border: OutlineInputBorder(
@@ -157,8 +158,8 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                         ),
                         onPressed: () {
                           if (seminar == null) {
-// tambah data Seminar(this._judul, this._waktu, this._harga, this._kuota, this._lokasi, this._pembicara);
-                            seminar = Seminar(judulController.text,
+                            seminar = Seminar(
+                                judulController.text,
                                 waktuController.text,
                                 int.parse(hargaController.text),
                                 int.parse(kuotaController.text),

@@ -101,7 +101,7 @@ class HomeState extends State<Home> {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.red,
-              child: Icon(Icons.ad_units),
+              child: Icon(Icons.date_range),
             ),
             title: Text(
               this.seminarList[index].judul,
@@ -112,28 +112,21 @@ class HomeState extends State<Home> {
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
-                //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Seminar
+                //Memanggil Fungsi untuk Delete dari DB berdasarkan Seminar
                 await dbHelperSeminar.delete(seminarList[index].id);
                 updateListView();
               },
             ),
             onTap: () async {
-              //  var seminar = await navigateToEntryForm(context, this.seminarList[index]);
-              //TODO 4 Panggil Fungsi untuk Edit data
-              //    await dbHelperSeminar.update(seminar);
+              var seminar = await navigateToEntryForm(context, this.seminarList[index]);
+              // Memanggil Fungsi untuk Edit data
+              await dbHelperSeminar.update(seminar);
               updateListView();
             },
           ),
         );
       },
     );
-  }
-
-  void addData() async {
-    var add1 = Seminar(
-        "Seminar1", "DateTime.now()", 50000, 50, "Zoom Meeting", "PemateriA");
-    await dbHelperSeminar.insert(add1);
-    updateListView();
   }
 
 //update List seminar

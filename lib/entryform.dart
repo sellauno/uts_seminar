@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dbhelperseminar.dart';
 import 'seminar.dart';
 import 'pesanan.dart';
 
@@ -11,12 +12,19 @@ class EntryForm extends StatefulWidget {
 
 //class controller
 class EntryFormState extends State<EntryForm> {
+  void initState() {
+    updateListView();
+  }
+
   Pesanan pesanan;
   EntryFormState(this.pesanan);
   TextEditingController namaController = TextEditingController();
   TextEditingController idSeminarController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController notelpController = TextEditingController();
+  DbHelperSeminar dbHelperSeminar = DbHelperSeminar();
+  List<Seminar> seminarList;
+  
   @override
   Widget build(BuildContext context) {
 //kondisi
@@ -25,6 +33,9 @@ class EntryFormState extends State<EntryForm> {
       idSeminarController.text = pesanan.getIdSeminar.toString();
       emailController.text = pesanan.email;
       notelpController.text = pesanan.noTelp();
+    }
+    if (seminarList == null) {
+      seminarList = [];
     }
 //ubah
     return Scaffold(
@@ -90,18 +101,26 @@ class EntryFormState extends State<EntryForm> {
 // idSeminar
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: TextField(
-                  controller: idSeminarController,
-                  keyboardType: TextInputType.number,
+                child: DropdownButtonFormField(
+                  hint: Text('Pilih Seminar yang diinginkan'),
+                  items: seminarList
+                      .map<DropdownMenuItem<Seminar>>((Seminar value) {
+                    return new DropdownMenuItem<Seminar>(
+                      value: value,
+                      child: new Text(value.judul),
+                    );
+                  }).toList(),
+                  onChanged: (Seminar value) {
+                    setState(() {
+                     idSeminarController.text = value.id.toString();
+                    });
+                  },
                   decoration: InputDecoration(
-                    labelText: 'Id Seminar',
+                    //labelText: 'No Telepon',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  onChanged: (value) {
-//
-                  },
                 ),
               ),
 // tombol button
@@ -121,7 +140,8 @@ class EntryFormState extends State<EntryForm> {
                         onPressed: () {
                           if (pesanan == null) {
 // tambah data
-                            pesanan = Pesanan(namaController.text,
+                            pesanan = Pesanan(
+                                namaController.text,
                                 emailController.text,
                                 notelpController.text,
                                 int.parse(idSeminarController.text));
@@ -130,7 +150,8 @@ class EntryFormState extends State<EntryForm> {
                             pesanan.nama = namaController.text;
                             pesanan.email = emailController.text;
                             pesanan.noTelp = notelpController.text;
-                            pesanan.idSeminar = int.parse(idSeminarController.text);
+                            pesanan.idSeminar =
+                                int.parse(idSeminarController.text);
                           }
 // kembali ke layar sebelumnya dengan membawa objek pesanan
                           Navigator.pop(context, pesanan);
@@ -160,5 +181,15 @@ class EntryFormState extends State<EntryForm> {
             ],
           ),
         ));
+  }
+
+  void updateListView() {
+// select data Seminar
+    Future<List<Seminar>> seminarListFuture = dbHelperSeminar.getSeminarList();
+    seminarListFuture.then((seminarList) {
+      setState(() {
+        this.seminarList = seminarList;
+      });
+    });
   }
 }
