@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'seminar.dart';
-import 'pesanan.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
 
 class EntryFormSeminar extends StatefulWidget {
   final Seminar seminar;
@@ -18,6 +19,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
   TextEditingController kuotaController = TextEditingController();
   TextEditingController lokasiController = TextEditingController();
   TextEditingController pembicaraController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
 //kondisi
@@ -57,7 +59,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                 ),
               ),
 // waktu
-
+/*
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
@@ -74,6 +76,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                   },
                 ),
               ),
+*/
 // Harga
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -125,6 +128,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                   },
                 ),
               ),
+
 // Pembicara
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -142,6 +146,30 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                   },
                 ),
               ),
+////////////////////////////
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: TextField(
+                  readOnly: true,
+                  controller: waktuController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Waktu',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onTap: () => _selectDate(context),
+                  onChanged: (value) {
+//
+                  },
+                ),
+                // RaisedButton(
+                //   onPressed: () => _selectDate(context),
+                //   child: Text('Select date'),
+                // ),
+              ),
+//////////////////////////////////////
 // tombol button
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -202,5 +230,27 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
             ],
           ),
         ));
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate, // Refer step 1
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null) {
+      final time = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(selectedDate ?? DateTime.now()),
+      );
+      if (time != null && picked != selectedDate)
+        setState(() {
+          selectedDate = picked;
+          var formatter = new DateFormat('yyyy-MM-dd');
+          String date = formatter.format(selectedDate);
+          waktuController.text = date + " " + time.format(context).toString();
+        });
+    }
   }
 }
