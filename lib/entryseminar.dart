@@ -24,12 +24,12 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
   Widget build(BuildContext context) {
 //kondisi
     if (seminar != null) {
-      judulController = seminar.judul;
-      waktuController = seminar.waktu;
-      hargaController = seminar.harga;
-      kuotaController = seminar.kuota;
-      lokasiController = seminar.lokasi;
-      pembicaraController = seminar.getPembicara;
+      judulController.text = seminar.judul;
+      waktuController.text = seminar.waktu;
+      hargaController.text = seminar.harga.toString();
+      kuotaController.text = seminar.kuota.toString();
+      lokasiController.text = seminar.lokasi;
+      pembicaraController.text = seminar.getPembicara;
     }
 //ubah
     return Scaffold(
@@ -58,25 +58,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                   },
                 ),
               ),
-// waktu
-/*
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: TextField(
-                  controller: waktuController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Waktu',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-//
-                  },
-                ),
-              ),
-*/
+
 // Harga
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -146,7 +128,8 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
                   },
                 ),
               ),
-////////////////////////////
+
+// waktu
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
@@ -164,12 +147,8 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
 //
                   },
                 ),
-                // RaisedButton(
-                //   onPressed: () => _selectDate(context),
-                //   child: Text('Select date'),
-                // ),
               ),
-//////////////////////////////////////
+
 // tombol button
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),

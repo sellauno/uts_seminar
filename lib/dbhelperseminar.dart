@@ -18,7 +18,7 @@ class DbHelperSeminar {
     return seminarDatabase;
   }
 
-  FutureOr<void> _onUpgrade(Database db, int olVersion, int newVersion){
+  FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion){
     _createDb(db, newVersion);
   }
 

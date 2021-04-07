@@ -24,7 +24,7 @@ class EntryFormState extends State<EntryForm> {
   TextEditingController notelpController = TextEditingController();
   DbHelperSeminar dbHelperSeminar = DbHelperSeminar();
   List<Seminar> seminarList;
-  
+  Seminar seminar;
   @override
   Widget build(BuildContext context) {
 //kondisi
@@ -113,6 +113,7 @@ class EntryFormState extends State<EntryForm> {
                   onChanged: (Seminar value) {
                     setState(() {
                      idSeminarController.text = value.id.toString();
+                     this.seminar = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -137,22 +138,25 @@ class EntryFormState extends State<EntryForm> {
                           'Save',
                           textScaleFactor: 1.5,
                         ),
-                        onPressed: () {
-                          if (pesanan == null) {
+                        onPressed: ()async {
+                          // if (pesanan == null) {
 // tambah data
                             pesanan = Pesanan(
                                 namaController.text,
                                 emailController.text,
                                 notelpController.text,
                                 int.parse(idSeminarController.text));
-                          } else {
-// ubah data
-                            pesanan.nama = namaController.text;
-                            pesanan.email = emailController.text;
-                            pesanan.noTelp = notelpController.text;
-                            pesanan.idSeminar =
-                                int.parse(idSeminarController.text);
-                          }
+                                seminar.kuota -=1;
+                                await dbHelperSeminar.update(seminar);
+//                           } 
+//                           else {
+// // ubah data
+//                             pesanan.nama = namaController.text;
+//                             pesanan.email = emailController.text;
+//                             pesanan.noTelp = notelpController.text;
+//                             pesanan.idSeminar =
+//                                 int.parse(idSeminarController.text);
+//                           }
 // kembali ke layar sebelumnya dengan membawa objek pesanan
                           Navigator.pop(context, pesanan);
                         },

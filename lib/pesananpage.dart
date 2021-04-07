@@ -106,21 +106,17 @@ class PesananPageState extends State<PesananPage> {
               style: textStyle,
             ),
             subtitle: Text("Id Seminar : " + this.itemList[index].idSeminar.toString()),
-            trailing: GestureDetector(
-              child: Icon(Icons.delete),
-              onTap: () async {
-                //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                await dbHelper.delete(itemList[index].idPesanan);
-                updateListView();
-              },
-            ),
-            onTap: () async {
-              var item =
-                  await navigateToEntryForm(context, this.itemList[index]);
-                //TODO 4 Panggil Fungsi untuk Edit data
-                await dbHelper.update(item);
-                updateListView();
-            },
+            // trailing: GestureDetector(
+            //   child: Icon(Icons.delete),
+            //   onTap: () async {
+            //     //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
+            //     await dbHelper.delete(itemList[index].idPesanan);
+            //     updateListView();
+            //   },
+            // ),
+            onTap: () {
+                  Navigator.pushNamed(context, '/detailPesanan', arguments: this.itemList[index]);
+                },
           ),
         );
       },

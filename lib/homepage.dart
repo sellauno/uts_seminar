@@ -108,7 +108,12 @@ class HomeState extends State<Home> {
               style: textStyle,
             ),
             subtitle:
-                Text("Harga : " + this.seminarList[index].harga.toString()),
+                Text("Pembicara : " + this.seminarList[index].getPembicara +
+                      "\nWaktu : " + this.seminarList[index].waktu+
+                      "\nLokasi : " + this.seminarList[index].lokasi+
+                      "\nKuota  : " + this.seminarList[index].kuota.toString()+
+                      "\nHarga  : " + this.seminarList[index].harga.toString()
+                ),
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
