@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uts_seminar/entryform.dart';
 import 'dart:async';
-import 'dbhelperseminar.dart';
 import 'dbhelperpesanan.dart';
-import 'seminar.dart';
 import 'pesanan.dart';
 
 //pendukung program asinkron
@@ -24,6 +22,7 @@ class PesananPageState extends State<PesananPage> {
   List<Pesanan> itemList;
   @override
   Widget build(BuildContext context) {
+    //kondisi apabila list masih kosong
     if (itemList == null) {
       itemList = [];
     }
@@ -57,6 +56,7 @@ class PesananPageState extends State<PesananPage> {
           ),
         ),
         Expanded(
+          //menampilkan list pesanan
           child: createListView(),
         ),
         Container(
@@ -67,7 +67,7 @@ class PesananPageState extends State<PesananPage> {
               onPressed: () async {
                 var pesanan = await navigateToEntryForm(context, null);
                 if (pesanan != null) {
-                  //TODO 2 Panggil Fungsi untuk Insert ke DB
+                  //Fungsi untuk Insert ke DB
                   int result = await dbHelper.insert(pesanan);
                   if (result > 0) {
                     updateListView();
@@ -79,7 +79,7 @@ class PesananPageState extends State<PesananPage> {
       ]),
     );
   }
-
+//Berpindah ke Halaman Form
   Future<Pesanan> navigateToEntryForm(BuildContext context, Pesanan item) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
@@ -106,14 +106,6 @@ class PesananPageState extends State<PesananPage> {
               style: textStyle,
             ),
             subtitle: Text("Id Seminar : " + this.itemList[index].idSeminar.toString()),
-            // trailing: GestureDetector(
-            //   child: Icon(Icons.delete),
-            //   onTap: () async {
-            //     //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-            //     await dbHelper.delete(itemList[index].idPesanan);
-            //     updateListView();
-            //   },
-            // ),
             onTap: () {
                   Navigator.pushNamed(context, '/detailPesanan', arguments: this.itemList[index]);
                 },
@@ -127,7 +119,7 @@ class PesananPageState extends State<PesananPage> {
   void updateListView() {
     final Future<Database> dbFuture = dbHelper.initDb();
     dbFuture.then((database) {
-//TODO 1 Select data dari DB
+//Select data dari DB
       Future<List<Pesanan>> itemListFuture = dbHelper.getPesananList();
       itemListFuture.then((itemList) {
         setState(() {

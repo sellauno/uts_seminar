@@ -19,6 +19,7 @@ class DetailPesanan extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //Nama
           Container(
             margin: EdgeInsets.only(left: 8, top: 10),
             padding: EdgeInsets.all(8),
@@ -26,6 +27,7 @@ class DetailPesanan extends StatelessWidget {
               "Nama             : $nama",
             ),
           ),
+          //Email
           Container(
             margin: EdgeInsets.only(left: 8),
             padding: EdgeInsets.all(8),
@@ -33,6 +35,7 @@ class DetailPesanan extends StatelessWidget {
               "Email             : $email",
             ),
           ),
+          //No Telepon
           Container(
             margin: EdgeInsets.only(left: 8),
             padding: EdgeInsets.all(8),
@@ -40,6 +43,7 @@ class DetailPesanan extends StatelessWidget {
               "No Telepon   : $notelp",
             ),
           ),
+          //Id Seminar
           Container(
             margin: EdgeInsets.only(left: 8),
             padding: EdgeInsets.all(8),

@@ -3,9 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:uts_seminar/entryseminar.dart';
 import 'dart:async';
 import 'dbhelperseminar.dart';
-import 'dbhelperpesanan.dart';
 import 'seminar.dart';
-import 'pesanan.dart';
 
 //pendukung program asinkron
 class Home extends StatefulWidget {

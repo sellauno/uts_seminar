@@ -1,3 +1,28 @@
+# Screenshots
+- Daftar Seminar
+
+![screenshot](image/seminar.jpeg)
+
+- Daftar Pesanan
+
+![screenshot](image/pesanan.jpeg)
+
+- Edit Data Seminar
+
+![screenshot](image/seminaredit.jpeg)
+
+- Tambah Data Seminar
+
+![screenshot](image/seminartambah.jpeg)
+
+- Tambah Data Pesanan
+
+![screenshot](image/pesanantambah.jpeg)
+
+- Detail Pesanan
+
+![screenshot](image/pesanandetail.jpeg)
+
 # uts_seminar
 
 A new Flutter project.

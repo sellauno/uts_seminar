@@ -44,9 +44,9 @@ class DbHelperSeminar {
 
      await db.execute('''
        INSERT INTO 'seminar' ('id', 'judul', 'waktu', 'harga', 'kuota', 'lokasi', 'pembicara') VALUES
-                 (1, 'Seminar1', '2021-04-07 10:00', 50000, 50, 'Zoom Meeting', 'PemateriA'),
-                 (2, 'Seminar2', '2021-04-08 10:00', 50000, 50, 'Zoom Meeting', 'PemateriB'),
-                 (3, 'Seminar3', '2021-04-09 10:00', 50000, 50, 'Zoom Meeting', 'PemateriC');
+                 (1, 'Seminar Beasiswa Luar Negeri', '2021-04-07 10:00', 20000, 100, 'Graha Polinema', 'PemateriA'),
+                 (2, 'Seminar Game Development', '2021-04-08 10:00', 30000, 50, 'Aula Pertamina', 'PemateriB'),
+                 (3, 'Seminar Aplikasi Mobile', '2021-04-09 10:00', 30000, 50, 'Aula Pertamina', 'PemateriC');
      ''');
 
     batchTemp.commit();

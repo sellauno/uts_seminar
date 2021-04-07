@@ -210,7 +210,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
           ),
         ));
   }
-
+//DatePicker
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -223,7 +223,7 @@ class EntryFormSeminarState extends State<EntryFormSeminar> {
         context: context,
         initialTime: TimeOfDay.fromDateTime(selectedDate ?? DateTime.now()),
       );
-      if (time != null && picked != selectedDate)
+      if (time != null)
         setState(() {
           selectedDate = picked;
           var formatter = new DateFormat('yyyy-MM-dd');

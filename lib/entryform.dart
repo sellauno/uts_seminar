@@ -23,21 +23,10 @@ class EntryFormState extends State<EntryForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController notelpController = TextEditingController();
   DbHelperSeminar dbHelperSeminar = DbHelperSeminar();
-  List<Seminar> seminarList;
+  List<Seminar> seminarList = [];
   Seminar seminar;
   @override
   Widget build(BuildContext context) {
-//kondisi
-    if (pesanan != null) {
-      namaController.text = pesanan.nama;
-      idSeminarController.text = pesanan.getIdSeminar.toString();
-      emailController.text = pesanan.email;
-      notelpController.text = pesanan.noTelp();
-    }
-    if (seminarList == null) {
-      seminarList = [];
-    }
-//ubah
     return Scaffold(
         appBar: AppBar(
           title: pesanan == null ? Text('Tambah') : Text('Ubah'),
@@ -139,7 +128,7 @@ class EntryFormState extends State<EntryForm> {
                           textScaleFactor: 1.5,
                         ),
                         onPressed: ()async {
-                          // if (pesanan == null) {
+                          
 // tambah data
                             pesanan = Pesanan(
                                 namaController.text,
@@ -148,15 +137,7 @@ class EntryFormState extends State<EntryForm> {
                                 int.parse(idSeminarController.text));
                                 seminar.kuota -=1;
                                 await dbHelperSeminar.update(seminar);
-//                           } 
-//                           else {
-// // ubah data
-//                             pesanan.nama = namaController.text;
-//                             pesanan.email = emailController.text;
-//                             pesanan.noTelp = notelpController.text;
-//                             pesanan.idSeminar =
-//                                 int.parse(idSeminarController.text);
-//                           }
+
 // kembali ke layar sebelumnya dengan membawa objek pesanan
                           Navigator.pop(context, pesanan);
                         },
