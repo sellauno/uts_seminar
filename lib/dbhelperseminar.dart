@@ -90,6 +90,22 @@ class DbHelperSeminar {
     return seminarList;
   }
 
+  Future<List<Map<String, dynamic>>> selectOnly() async {
+    Database db = await this.initDb();
+    var mapList = await db.query('seminar', where: 'kuota>0');
+    return mapList;
+  }
+
+  Future<List<Seminar>> getSeminarListReady() async {
+    var seminarMapList = await selectOnly();
+    int count = seminarMapList.length;
+    List<Seminar> seminarList = [];
+    for (int i = 0; i < count; i++) {
+      seminarList.add(Seminar.fromMap(seminarMapList[i]));
+    }
+    return seminarList;
+  }
+
   factory DbHelperSeminar() {
     if (_dbHelper == null) {
       _dbHelper = DbHelperSeminar._createObject();

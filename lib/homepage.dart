@@ -138,7 +138,7 @@ class HomeState extends State<Home> {
     dbFuture.then((database) {
 // select data Seminar
       Future<List<Seminar>> seminarListFuture =
-          dbHelperSeminar.getSeminarList();
+      dbHelperSeminar.getSeminarList();
       seminarListFuture.then((seminarList) {
         setState(() {
           this.seminarList = seminarList;

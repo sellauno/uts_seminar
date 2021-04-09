@@ -94,15 +94,15 @@ class EntryFormState extends State<EntryForm> {
                   hint: Text('Pilih Seminar yang diinginkan'),
                   items: seminarList
                       .map<DropdownMenuItem<Seminar>>((Seminar value) {
-                    return new DropdownMenuItem<Seminar>(
-                      value: value,
-                      child: new Text(value.judul),
-                    );
+                      return new DropdownMenuItem<Seminar>(
+                        value: value,
+                        child: new Text(value.judul),
+                      );
                   }).toList(),
                   onChanged: (Seminar value) {
                     setState(() {
-                     idSeminarController.text = value.id.toString();
-                     this.seminar = value;
+                      idSeminarController.text = value.id.toString();
+                      this.seminar = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -127,16 +127,17 @@ class EntryFormState extends State<EntryForm> {
                           'Save',
                           textScaleFactor: 1.5,
                         ),
-                        onPressed: ()async {
-                          
+                        onPressed: () async {
 // tambah data
-                            pesanan = Pesanan(
-                                namaController.text,
-                                emailController.text,
-                                notelpController.text,
-                                int.parse(idSeminarController.text));
-                                seminar.kuota -=1;
-                                await dbHelperSeminar.update(seminar);
+                          pesanan = Pesanan(
+                              namaController.text,
+                              emailController.text,
+                              notelpController.text,
+                              int.parse(idSeminarController.text));
+                          if (seminar.kuota > 0) {
+                            seminar.kuota -= 1;
+                            await dbHelperSeminar.update(seminar);
+                          }
 
 // kembali ke layar sebelumnya dengan membawa objek pesanan
                           Navigator.pop(context, pesanan);
@@ -170,7 +171,7 @@ class EntryFormState extends State<EntryForm> {
 
   void updateListView() {
 // select data Seminar
-    Future<List<Seminar>> seminarListFuture = dbHelperSeminar.getSeminarList();
+    Future<List<Seminar>> seminarListFuture = dbHelperSeminar.getSeminarListReady();
     seminarListFuture.then((seminarList) {
       setState(() {
         this.seminarList = seminarList;
